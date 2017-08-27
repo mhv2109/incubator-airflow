@@ -70,7 +70,10 @@ def pessimistic_connection_handling():
         try:
             cursor.execute("SELECT 1")
         except:
-            raise exc.DisconnectionError()
+            try:
+                cursor.execute("SELECT 1 FROM DUAL")
+            except:
+                raise exc.DisconnectionError()
         cursor.close()
 
 
